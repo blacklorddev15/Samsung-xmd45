@@ -4,7 +4,7 @@ import { neon } from '@neondatabase/serverless';
 export const dynamic = 'force-dynamic';
 
 const STATS = [
-  { value: '500+',   label: 'Active Panels' },
+  { value: '500+',   label: 'Active Servers' },
   { value: '99.9%',  label: 'Uptime' },
   { value: '24/7',   label: 'Support' },
   { value: '1,000+', label: 'Happy Clients' },
@@ -20,15 +20,15 @@ const FEATURES = [
   },
   {
     icon: '🤖',
-    title: 'WhatsApp Bot',
-    desc: 'Link your WhatsApp via Telegram bot pairing. Send /pair 254XXXXXXXXX to connect your number instantly.',
-    href: '/whatsapp-bot',
-    cta: 'Learn More',
+    title: 'Telegram Bots',
+    desc: 'Deploy and manage Telegram bots with ease. Automate your workflows and engage your audience 24/7.',
+    href: '/bots',
+    cta: 'Deploy Bot',
   },
   {
     icon: '💳',
     title: 'Wallet System',
-    desc: 'Top up via M-Pesa or card and deploy panels instantly — no repeated checkout, just one balance for everything.',
+    desc: 'Top up via M-Pesa, Paystack, or Crypto and deploy instantly — no repeated checkout, just one balance for everything.',
     href: '/wallet',
     cta: 'Top Up',
   },
@@ -42,7 +42,7 @@ async function getPackages() {
   try {
     const sql = neon(process.env.DATABASE_URL);
     const rows = await sql`
-      SELECT id, name, price, cpu, ram, disk, popular, accent
+      SELECT id, name, price, cpu, ram, disk, popular, accent, expires_after_hours
       FROM packages
       WHERE active = true
       ORDER BY sort_order ASC, id ASC
@@ -64,47 +64,47 @@ export default async function Home() {
         style={{ background: 'linear-gradient(180deg,rgba(7,20,40,0.98) 0%,rgba(10,10,15,1) 100%)' }}>
         {/* Grid overlay */}
         <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'linear-gradient(rgba(37,99,235,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(37,99,235,0.06) 1px,transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(124,58,237,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.06) 1px,transparent 1px)',
           backgroundSize: '40px 40px',
         }} />
         {/* Glow blobs */}
         <div className="absolute top-16 left-1/4 w-64 sm:w-96 h-64 sm:h-96 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle,rgba(37,99,235,0.18) 0%,transparent 70%)', filter: 'blur(48px)' }} />
+          style={{ background: 'radial-gradient(circle,rgba(124,58,237,0.18) 0%,transparent 70%)', filter: 'blur(48px)' }} />
         <div className="absolute bottom-0 right-1/4 w-56 sm:w-80 h-56 sm:h-80 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle,rgba(29,78,216,0.12) 0%,transparent 70%)', filter: 'blur(48px)' }} />
+          style={{ background: 'radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 70%)', filter: 'blur(48px)' }} />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-36 text-center">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 sm:mb-8"
-            style={{ backgroundColor: 'rgba(37,99,235,0.1)', border: '1px solid rgba(37,99,235,0.3)' }}>
-            <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
-            <span className="text-xs sm:text-sm font-semibold" style={{ color: '#60a5fa' }}>Kenya&apos;s #1 Panel Hosting Provider</span>
+            style={{ backgroundColor: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.3)' }}>
+            <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
+            <span className="text-xs sm:text-sm font-semibold" style={{ color: '#c084fc' }}>Kenya&apos;s #1 Tech Solutions Provider</span>
           </div>
 
           {/* Headline */}
           <h1 className="font-extrabold mb-5 sm:mb-6 leading-tight"
             style={{ fontSize: 'clamp(2.2rem, 7vw, 4.5rem)', color: '#f0f4ff' }}>
             Power Your{' '}
-            <span style={{ background: 'linear-gradient(135deg,#60a5fa,#2563eb,#818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Digital World
+            <span style={{ background: 'linear-gradient(135deg,#c084fc,#7c3aed,#3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              Digital Future
             </span>
           </h1>
 
           <p className="mb-8 sm:mb-10 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-2" style={{ color: '#64748b' }}>
-            Pterodactyl panel hosting, WhatsApp automation bots, and tech solutions — all under one roof. Powered by Mzazi Tech Inc.
+            Pterodactyl panel hosting, Telegram bots, and tech solutions — all under one roof. Powered by Blacklord Tech Inc.
           </p>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
             <Link href="/products"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-white text-base transition-all"
-              style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', boxShadow: '0 0 28px rgba(37,99,235,0.45)', textDecoration: 'none' }}>
+              style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)', boxShadow: '0 0 28px rgba(124,58,237,0.45)', textDecoration: 'none' }}>
               🚀 Deploy a Panel
             </Link>
-            <Link href="/whatsapp-bot"
+            <Link href="/signup"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm transition-all"
               style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: '#f0f4ff', border: '1px solid #1e2d4a', textDecoration: 'none' }}>
-              🤖 WhatsApp Bot
+              🔥 Get Started Free
             </Link>
           </div>
 
@@ -142,12 +142,12 @@ export default async function Home() {
       <section className="py-16 sm:py-24" style={{ backgroundColor: '#0a0a0f' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>What We Offer</p>
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#7c3aed' }}>What We Offer</p>
             <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.6rem,4vw,2.5rem)', color: '#f0f4ff' }}>
               Everything You Need
             </h2>
             <p className="text-sm sm:text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
-              From game servers to WhatsApp bots — deploy, manage, and scale your digital infrastructure in minutes.
+              From game servers to Telegram bots — deploy, manage, and scale your digital infrastructure in minutes.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default async function Home() {
                 <p className="text-sm leading-relaxed mb-5" style={{ color: '#64748b' }}>{f.desc}</p>
                 <Link href={f.href}
                   className="inline-flex items-center gap-1 text-sm font-semibold transition-all"
-                  style={{ color: '#3b82f6', textDecoration: 'none' }}>
+                  style={{ color: '#7c3aed', textDecoration: 'none' }}>
                   {f.cta} <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
                 </Link>
               </div>
@@ -174,7 +174,7 @@ export default async function Home() {
       <section className="py-16 sm:py-24" style={{ backgroundColor: '#0d0d1a' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#3b82f6' }}>Panel Plans</p>
+            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#7c3aed' }}>Panel Plans</p>
             <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.6rem,4vw,2.5rem)', color: '#f0f4ff' }}>
               Simple, Honest Pricing
             </h2>
@@ -186,14 +186,14 @@ export default async function Home() {
               <div key={pkg.id}
                 className="relative rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1"
                 style={{
-                  backgroundColor: pkg.popular ? '#0f1a35' : '#0f1629',
-                  border: `1px solid ${pkg.popular ? (pkg.accent || '#2563eb') : '#1e2d4a'}`,
-                  boxShadow: pkg.popular ? `0 0 30px rgba(37,99,235,0.2)` : 'none',
+                  backgroundColor: pkg.popular ? '#1a1035' : '#0f1629',
+                  border: `1px solid ${pkg.popular ? (pkg.accent || '#7c3aed') : '#1e2d4a'}`,
+                  boxShadow: pkg.popular ? `0 0 30px rgba(124,58,237,0.2)` : 'none',
                 }}>
                 {pkg.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="px-3 py-1 rounded-full text-xs font-bold text-white"
-                      style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)' }}>
+                      style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)' }}>
                       Most Popular
                     </span>
                   </div>
@@ -202,7 +202,7 @@ export default async function Home() {
                 <div className="mb-4">
                   <p className="font-bold text-base sm:text-lg mb-1" style={{ color: '#f0f4ff' }}>{pkg.name}</p>
                   <div className="flex items-baseline gap-1">
-                    <span className="font-extrabold" style={{ fontSize: 'clamp(1.8rem,5vw,2.25rem)', color: pkg.popular ? '#60a5fa' : '#f0f4ff' }}>
+                    <span className="font-extrabold" style={{ fontSize: 'clamp(1.8rem,5vw,2.25rem)', color: pkg.popular ? '#c084fc' : '#f0f4ff' }}>
                       KSH {pkg.price}
                     </span>
                     <span className="text-xs" style={{ color: '#475569' }}>/mo</span>
@@ -212,7 +212,7 @@ export default async function Home() {
                 <ul className="space-y-2.5 mb-6">
                   {[fmtCpu(pkg.cpu), fmtRam(pkg.ram), fmtDisk(pkg.disk), ...(pkg.expires_after_hours ? [`Auto-removed after ${pkg.expires_after_hours}h`] : [])].map(spec => (
                     <li key={spec} className="flex items-center gap-2.5 text-sm" style={{ color: '#94a3b8' }}>
-                      <svg className="w-4 h-4 flex-shrink-0" style={{ color: '#3b82f6' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 flex-shrink-0" style={{ color: '#7c3aed' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                       {spec}
@@ -223,9 +223,9 @@ export default async function Home() {
                 <Link href="/products"
                   className="block w-full py-2.5 rounded-xl text-sm font-bold text-center transition-all"
                   style={{
-                    background: pkg.popular ? 'linear-gradient(135deg,#2563eb,#1d4ed8)' : 'transparent',
-                    color: pkg.popular ? '#fff' : '#60a5fa',
-                    border: pkg.popular ? 'none' : '1px solid rgba(37,99,235,0.35)',
+                    background: pkg.popular ? 'linear-gradient(135deg,#7c3aed,#3b82f6)' : 'transparent',
+                    color: pkg.popular ? '#fff' : '#c084fc',
+                    border: pkg.popular ? 'none' : '1px solid rgba(124,58,237,0.35)',
                     textDecoration: 'none',
                   }}>
                   {pkg.popular ? 'Get Started' : 'Choose Plan'}
@@ -242,7 +242,7 @@ export default async function Home() {
 
       {/* ─── CTA Banner ─── */}
       <section className="py-16 sm:py-20"
-        style={{ background: 'linear-gradient(135deg,rgba(37,99,235,0.15) 0%,rgba(10,10,15,1) 100%)' }}>
+        style={{ background: 'linear-gradient(135deg,rgba(124,58,237,0.15) 0%,rgba(10,10,15,1) 100%)' }}>
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.5rem,4vw,2.2rem)', color: '#f0f4ff' }}>
             Ready to get started?
@@ -253,7 +253,7 @@ export default async function Home() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <Link href="/signup"
               className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-white text-base"
-              style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', boxShadow: '0 0 28px rgba(37,99,235,0.4)', textDecoration: 'none' }}>
+              style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)', boxShadow: '0 0 28px rgba(124,58,237,0.4)', textDecoration: 'none' }}>
               Create Free Account
             </Link>
             <Link href="/contact"
