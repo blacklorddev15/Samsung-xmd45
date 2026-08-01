@@ -104,19 +104,7 @@ export default async function Home() {
 
         <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24 text-center">
 
-          {/* Badge */}
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 sm:mb-8"
-            style={{
-              backgroundColor: 'rgba(124,58,237,0.12)',
-              border: '1px solid rgba(124,58,237,0.3)',
-            }}
-          >
-            <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-            <span className="text-xs sm:text-sm font-semibold" style={{ color: '#c084fc' }}>
-              Kenya's #1 Tech Solutions Provider
-            </span>
-          </div>
+          {/* ─── BADGE REMOVED ─── */}
 
           {/* Headline */}
           <h1
@@ -166,7 +154,7 @@ export default async function Home() {
             </span>
           </div>
 
-          {/* CTA Buttons */}
+          {/* ─── CTA BUTTONS ─── */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0 mt-6">
             <Link
               href="/products"
@@ -189,7 +177,7 @@ export default async function Home() {
                 textDecoration: 'none',
               }}
             >
-              🔥 Get Started Free
+              🔥 Get Started
             </Link>
           </div>
 
