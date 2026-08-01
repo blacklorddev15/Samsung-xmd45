@@ -105,7 +105,7 @@ export default function Navbar() {
               </div>
               <span className="text-base sm:text-lg font-extrabold tracking-tight"
                 style={{ background: 'linear-gradient(135deg,#60a5fa,#3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                MZAZI TECH
+                𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃 𝐓𝐄𝐂𝐇
               </span>
             </Link>
 
