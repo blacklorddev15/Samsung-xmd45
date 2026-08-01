@@ -4,9 +4,9 @@ import { neon } from '@neondatabase/serverless';
 export const dynamic = 'force-dynamic';
 
 const STATS = [
-  { value: '500+',   label: 'Active Servers' },
-  { value: '99.9%',  label: 'Uptime' },
-  { value: '24/7',   label: 'Support' },
+  { value: '500+', label: 'Active Servers' },
+  { value: '99.9%', label: 'Uptime' },
+  { value: '24/7', label: 'Support' },
   { value: '1,000+', label: 'Happy Clients' },
 ];
 
@@ -34,9 +34,18 @@ const FEATURES = [
   },
 ];
 
-function fmtCpu(v)  { const n = parseInt(v); return n === 0 ? 'Unlimited CPU'  : `${n}% CPU`; }
-function fmtRam(v)  { const n = parseInt(v); return n === 0 ? 'Unlimited RAM'  : n >= 1024 ? `${n / 1024} GB RAM`  : `${n} MB RAM`; }
-function fmtDisk(v) { const n = parseInt(v); return n === 0 ? 'Unlimited Disk' : n >= 1024 ? `${n / 1024} GB Disk` : `${n} GB`; }
+function fmtCpu(v) {
+  const n = parseInt(v);
+  return n === 0 ? 'Unlimited CPU' : `${n}% CPU`;
+}
+function fmtRam(v) {
+  const n = parseInt(v);
+  return n === 0 ? 'Unlimited RAM' : n >= 1024 ? `${n / 1024} GB RAM` : `${n} MB RAM`;
+}
+function fmtDisk(v) {
+  const n = parseInt(v);
+  return n === 0 ? 'Unlimited Disk' : n >= 1024 ? `${n / 1024} GB Disk` : `${n} GB`;
+}
 
 async function getPackages() {
   try {
@@ -59,63 +68,143 @@ export default async function Home() {
   return (
     <div style={{ backgroundColor: '#0a0a0f' }}>
 
-      {/* ─── Hero ─── */}
-      <section className="relative overflow-hidden"
-        style={{ background: 'linear-gradient(180deg,rgba(7,20,40,0.98) 0%,rgba(10,10,15,1) 100%)' }}>
-        {/* Grid overlay */}
-        <div className="absolute inset-0 pointer-events-none" style={{
-          backgroundImage: 'linear-gradient(rgba(124,58,237,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.06) 1px,transparent 1px)',
-          backgroundSize: '40px 40px',
-        }} />
-        {/* Glow blobs */}
-        <div className="absolute top-16 left-1/4 w-64 sm:w-96 h-64 sm:h-96 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle,rgba(124,58,237,0.18) 0%,transparent 70%)', filter: 'blur(48px)' }} />
-        <div className="absolute bottom-0 right-1/4 w-56 sm:w-80 h-56 sm:h-80 rounded-full pointer-events-none"
-          style={{ background: 'radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 70%)', filter: 'blur(48px)' }} />
+      {/* ─── HERO / LANDING PAGE ─── */}
+      <section
+        className="relative overflow-hidden min-h-screen flex items-center"
+        style={{
+          background: 'linear-gradient(180deg, rgba(7,20,40,0.92) 0%, rgba(10,10,15,0.95) 100%)',
+        }}
+      >
 
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-28 lg:py-36 text-center">
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(124,58,237,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.06) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+          }}
+        />
+
+        {/* Glow blobs */}
+        <div
+          className="absolute top-16 left-1/4 w-64 sm:w-96 h-64 sm:h-96 rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)',
+            filter: 'blur(48px)',
+          }}
+        />
+        <div
+          className="absolute bottom-0 right-1/4 w-56 sm:w-80 h-56 sm:h-80 rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)',
+            filter: 'blur(48px)',
+          }}
+        />
+
+        <div className="relative w-full max-w-5xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24 text-center">
+
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 sm:mb-8"
-            style={{ backgroundColor: 'rgba(124,58,237,0.1)', border: '1px solid rgba(124,58,237,0.3)' }}>
+          <div
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 sm:mb-8"
+            style={{
+              backgroundColor: 'rgba(124,58,237,0.12)',
+              border: '1px solid rgba(124,58,237,0.3)',
+            }}
+          >
             <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
-            <span className="text-xs sm:text-sm font-semibold" style={{ color: '#c084fc' }}>Kenya&apos;s #1 Tech Solutions Provider</span>
+            <span className="text-xs sm:text-sm font-semibold" style={{ color: '#c084fc' }}>
+              Kenya's #1 Tech Solutions Provider
+            </span>
           </div>
 
           {/* Headline */}
-          <h1 className="font-extrabold mb-5 sm:mb-6 leading-tight"
-            style={{ fontSize: 'clamp(2.2rem, 7vw, 4.5rem)', color: '#f0f4ff' }}>
-            Power Your{' '}
-            <span style={{ background: 'linear-gradient(135deg,#c084fc,#7c3aed,#3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Digital Future
+          <h1
+            className="font-extrabold mb-4 sm:mb-6 leading-tight"
+            style={{
+              fontSize: 'clamp(2.2rem, 7vw, 4.5rem)',
+              color: '#f0f4ff',
+            }}
+          >
+            𝐓𝐇𝐄 𝐅𝐔𝐓𝐔𝐑𝐄 𝐒𝐓𝐀𝐑𝐓𝐒 𝐀𝐓
+            <br />
+            <span
+              style={{
+                background: 'linear-gradient(135deg, #c084fc, #7c3aed, #3b82f6)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃 𝐓𝐄𝐂𝐇
             </span>
           </h1>
 
-          <p className="mb-8 sm:mb-10 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-2" style={{ color: '#64748b' }}>
-            Pterodactyl panel hosting, Telegram bots, and tech solutions — all under one roof. Powered by Blacklord Tech Inc.
+          {/* Description */}
+          <p
+            className="mb-6 sm:mb-8 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-2"
+            style={{ color: '#94a3b8' }}
+          >
+            <i>
+              From cloud hosting to intelligent automation, we deliver technology that
+              drives success. <strong style={{ color: '#c084fc' }}>
+                Whether you're a creator, startup, or established business,
+              </strong>{' '}
+              our powerful Pterodactyl hosting, advanced automation, and innovative
+              digital solutions are designed to help you scale with confidence.
+            </i>
           </p>
 
-          {/* CTA buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
-            <Link href="/products"
+          {/* Circle Badge */}
+          <div className="circle-badge">
+            <span className="badge-text">
+              𝐁𝐋𝐀𝐂𝐊𝐋𝐎𝐑𝐃
+              <br />
+              𝐓𝐄𝐂𝐇,
+              <br />
+              <span className="small">𝐈𝐍𝐂𝐎𝐑𝐏𝐎𝐑𝐀𝐓𝐄𝐃</span>
+            </span>
+          </div>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0 mt-6">
+            <Link
+              href="/products"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-white text-base transition-all"
-              style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)', boxShadow: '0 0 28px rgba(124,58,237,0.45)', textDecoration: 'none' }}>
+              style={{
+                background: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+                boxShadow: '0 0 28px rgba(124,58,237,0.45)',
+                textDecoration: 'none',
+              }}
+            >
               🚀 Deploy a Panel
             </Link>
-            <Link href="/signup"
+            <Link
+              href="/signup"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-semibold text-sm transition-all"
-              style={{ backgroundColor: 'rgba(255,255,255,0.05)', color: '#f0f4ff', border: '1px solid #1e2d4a', textDecoration: 'none' }}>
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                color: '#f0f4ff',
+                border: '1px solid #1e2d4a',
+                textDecoration: 'none',
+              }}
+            >
               🔥 Get Started Free
             </Link>
           </div>
 
-          {/* Trust strip */}
-          <div className="mt-10 sm:mt-14 flex flex-wrap justify-center gap-4 sm:gap-8">
+          {/* Trust Strip */}
+          <div className="mt-8 sm:mt-12 flex flex-wrap justify-center gap-4 sm:gap-8">
             {[
               { icon: '⚡', text: 'Instant Deployment' },
               { icon: '🔒', text: 'Secure & Reliable' },
               { icon: '💬', text: '24/7 Support' },
-            ].map(t => (
-              <div key={t.text} className="flex items-center gap-2 text-xs sm:text-sm" style={{ color: '#475569' }}>
+            ].map((t) => (
+              <div
+                key={t.text}
+                className="flex items-center gap-2 text-xs sm:text-sm"
+                style={{ color: '#475569' }}
+              >
                 <span>{t.icon}</span>
                 <span>{t.text}</span>
               </div>
@@ -124,45 +213,88 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ─── Stats ─── */}
-      <section className="py-10 sm:py-14" style={{ backgroundColor: '#0a0a0f', borderTop: '1px solid #0d1120', borderBottom: '1px solid #0d1120' }}>
+      {/* ─── STATS ─── */}
+      <section
+        className="py-10 sm:py-14"
+        style={{
+          backgroundColor: '#0a0a0f',
+          borderTop: '1px solid #0d1120',
+          borderBottom: '1px solid #0d1120',
+        }}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 text-center">
-            {STATS.map(s => (
+            {STATS.map((s) => (
               <div key={s.label}>
-                <p className="font-extrabold mb-1" style={{ fontSize: 'clamp(1.6rem,4vw,2rem)', color: '#f0f4ff' }}>{s.value}</p>
-                <p className="text-xs sm:text-sm" style={{ color: '#475569' }}>{s.label}</p>
+                <p
+                  className="font-extrabold mb-1"
+                  style={{
+                    fontSize: 'clamp(1.6rem, 4vw, 2rem)',
+                    color: '#f0f4ff',
+                  }}
+                >
+                  {s.value}
+                </p>
+                <p className="text-xs sm:text-sm" style={{ color: '#475569' }}>
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── Features ─── */}
+      {/* ─── FEATURES ─── */}
       <section className="py-16 sm:py-24" style={{ backgroundColor: '#0a0a0f' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#7c3aed' }}>What We Offer</p>
-            <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.6rem,4vw,2.5rem)', color: '#f0f4ff' }}>
+            <p
+              className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3"
+              style={{ color: '#7c3aed' }}
+            >
+              What We Offer
+            </p>
+            <h2
+              className="font-extrabold mb-4"
+              style={{
+                fontSize: 'clamp(1.6rem, 4vw, 2.5rem)',
+                color: '#f0f4ff',
+              }}
+            >
               Everything You Need
             </h2>
             <p className="text-sm sm:text-base max-w-xl mx-auto" style={{ color: '#64748b' }}>
-              From game servers to Telegram bots — deploy, manage, and scale your digital infrastructure in minutes.
+              From game servers to Telegram bots — deploy, manage, and scale your
+              digital infrastructure in minutes.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6">
-            {FEATURES.map(f => (
-              <div key={f.title}
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
                 className="rounded-2xl p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 group"
-                style={{ backgroundColor: '#0f1629', border: '1px solid #1e2d4a' }}>
+                style={{
+                  backgroundColor: '#0f1629',
+                  border: '1px solid #1e2d4a',
+                }}
+              >
                 <div className="text-3xl mb-4">{f.icon}</div>
-                <h3 className="font-bold text-base sm:text-lg mb-2" style={{ color: '#f0f4ff' }}>{f.title}</h3>
-                <p className="text-sm leading-relaxed mb-5" style={{ color: '#64748b' }}>{f.desc}</p>
-                <Link href={f.href}
+                <h3 className="font-bold text-base sm:text-lg mb-2" style={{ color: '#f0f4ff' }}>
+                  {f.title}
+                </h3>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: '#64748b' }}>
+                  {f.desc}
+                </p>
+                <Link
+                  href={f.href}
                   className="inline-flex items-center gap-1 text-sm font-semibold transition-all"
-                  style={{ color: '#7c3aed', textDecoration: 'none' }}>
-                  {f.cta} <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>
+                  style={{ color: '#7c3aed', textDecoration: 'none' }}
+                >
+                  {f.cta}{' '}
+                  <span className="group-hover:translate-x-1 transition-transform inline-block">
+                    →
+                  </span>
                 </Link>
               </div>
             ))}
@@ -170,64 +302,123 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ─── Pricing ─── */}
+      {/* ─── PRICING ─── */}
       <section className="py-16 sm:py-24" style={{ backgroundColor: '#0d0d1a' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12 sm:mb-16">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3" style={{ color: '#7c3aed' }}>Panel Plans</p>
-            <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.6rem,4vw,2.5rem)', color: '#f0f4ff' }}>
+            <p
+              className="text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3"
+              style={{ color: '#7c3aed' }}
+            >
+              Panel Plans
+            </p>
+            <h2
+              className="font-extrabold mb-4"
+              style={{
+                fontSize: 'clamp(1.6rem, 4vw, 2.5rem)',
+                color: '#f0f4ff',
+              }}
+            >
               Simple, Honest Pricing
             </h2>
-            <p className="text-sm sm:text-base" style={{ color: '#64748b' }}>Pay per month. Cancel anytime. No hidden fees.</p>
+            <p className="text-sm sm:text-base" style={{ color: '#64748b' }}>
+              Pay per month. Cancel anytime. No hidden fees.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
-            {packages.map(pkg => (
-              <div key={pkg.id}
+            {packages.map((pkg) => (
+              <div
+                key={pkg.id}
                 className="relative rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1"
                 style={{
                   backgroundColor: pkg.popular ? '#1a1035' : '#0f1629',
                   border: `1px solid ${pkg.popular ? (pkg.accent || '#7c3aed') : '#1e2d4a'}`,
-                  boxShadow: pkg.popular ? `0 0 30px rgba(124,58,237,0.2)` : 'none',
-                }}>
+                  boxShadow: pkg.popular
+                    ? `0 0 30px rgba(124,58,237,0.2)`
+                    : 'none',
+                }}
+              >
                 {pkg.popular && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="px-3 py-1 rounded-full text-xs font-bold text-white"
-                      style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)' }}>
+                    <span
+                      className="px-3 py-1 rounded-full text-xs font-bold text-white"
+                      style={{
+                        background: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+                      }}
+                    >
                       Most Popular
                     </span>
                   </div>
                 )}
 
                 <div className="mb-4">
-                  <p className="font-bold text-base sm:text-lg mb-1" style={{ color: '#f0f4ff' }}>{pkg.name}</p>
+                  <p className="font-bold text-base sm:text-lg mb-1" style={{ color: '#f0f4ff' }}>
+                    {pkg.name}
+                  </p>
                   <div className="flex items-baseline gap-1">
-                    <span className="font-extrabold" style={{ fontSize: 'clamp(1.8rem,5vw,2.25rem)', color: pkg.popular ? '#c084fc' : '#f0f4ff' }}>
+                    <span
+                      className="font-extrabold"
+                      style={{
+                        fontSize: 'clamp(1.8rem, 5vw, 2.25rem)',
+                        color: pkg.popular ? '#c084fc' : '#f0f4ff',
+                      }}
+                    >
                       KSH {pkg.price}
                     </span>
-                    <span className="text-xs" style={{ color: '#475569' }}>/mo</span>
+                    <span className="text-xs" style={{ color: '#475569' }}>
+                      /mo
+                    </span>
                   </div>
                 </div>
 
                 <ul className="space-y-2.5 mb-6">
-                  {[fmtCpu(pkg.cpu), fmtRam(pkg.ram), fmtDisk(pkg.disk), ...(pkg.expires_after_hours ? [`Auto-removed after ${pkg.expires_after_hours}h`] : [])].map(spec => (
-                    <li key={spec} className="flex items-center gap-2.5 text-sm" style={{ color: '#94a3b8' }}>
-                      <svg className="w-4 h-4 flex-shrink-0" style={{ color: '#7c3aed' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  {[
+                    fmtCpu(pkg.cpu),
+                    fmtRam(pkg.ram),
+                    fmtDisk(pkg.disk),
+                    ...(pkg.expires_after_hours
+                      ? [`Auto-removed after ${pkg.expires_after_hours}h`]
+                      : []),
+                  ].map((spec) => (
+                    <li
+                      key={spec}
+                      className="flex items-center gap-2.5 text-sm"
+                      style={{ color: '#94a3b8' }}
+                    >
+                      <svg
+                        className="w-4 h-4 flex-shrink-0"
+                        style={{ color: '#7c3aed' }}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2.5}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                       {spec}
                     </li>
                   ))}
                 </ul>
 
-                <Link href="/products"
+                <Link
+                  href="/products"
                   className="block w-full py-2.5 rounded-xl text-sm font-bold text-center transition-all"
                   style={{
-                    background: pkg.popular ? 'linear-gradient(135deg,#7c3aed,#3b82f6)' : 'transparent',
+                    background: pkg.popular
+                      ? 'linear-gradient(135deg, #7c3aed, #3b82f6)'
+                      : 'transparent',
                     color: pkg.popular ? '#fff' : '#c084fc',
-                    border: pkg.popular ? 'none' : '1px solid rgba(124,58,237,0.35)',
+                    border: pkg.popular
+                      ? 'none'
+                      : '1px solid rgba(124,58,237,0.35)',
                     textDecoration: 'none',
-                  }}>
+                  }}
+                >
                   {pkg.popular ? 'Get Started' : 'Choose Plan'}
                 </Link>
               </div>
@@ -240,25 +431,49 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* ─── CTA Banner ─── */}
-      <section className="py-16 sm:py-20"
-        style={{ background: 'linear-gradient(135deg,rgba(124,58,237,0.15) 0%,rgba(10,10,15,1) 100%)' }}>
+      {/* ─── CTA BANNER ─── */}
+      <section
+        className="py-16 sm:py-20"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(124,58,237,0.15) 0%, rgba(10,10,15,1) 100%)',
+        }}
+      >
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-          <h2 className="font-extrabold mb-4" style={{ fontSize: 'clamp(1.5rem,4vw,2.2rem)', color: '#f0f4ff' }}>
+          <h2
+            className="font-extrabold mb-4"
+            style={{
+              fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+              color: '#f0f4ff',
+            }}
+          >
             Ready to get started?
           </h2>
           <p className="mb-8 text-sm sm:text-base" style={{ color: '#64748b' }}>
-            Create your free account, top up your wallet, and deploy your first panel in under 5 minutes.
+            Create your free account, top up your wallet, and deploy your first panel
+            in under 5 minutes.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link href="/signup"
+            <Link
+              href="/signup"
               className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-bold text-white text-base"
-              style={{ background: 'linear-gradient(135deg,#7c3aed,#3b82f6)', boxShadow: '0 0 28px rgba(124,58,237,0.4)', textDecoration: 'none' }}>
+              style={{
+                background: 'linear-gradient(135deg, #7c3aed, #3b82f6)',
+                boxShadow: '0 0 28px rgba(124,58,237,0.4)',
+                textDecoration: 'none',
+              }}
+            >
               Create Free Account
             </Link>
-            <Link href="/contact"
+            <Link
+              href="/contact"
               className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-sm"
-              style={{ color: '#94a3b8', border: '1px solid #1e2d4a', textDecoration: 'none' }}>
+              style={{
+                color: '#94a3b8',
+                border: '1px solid #1e2d4a',
+                textDecoration: 'none',
+              }}
+            >
               Talk to Support
             </Link>
           </div>
