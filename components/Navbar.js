@@ -4,37 +4,33 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
-  { href: '/',             label: 'Home' },
-  { href: '/products',     label: 'Panels' },
-  { href: '/whatsapp-bot', label: 'WhatsApp Bot' },
-  { href: '/about',        label: 'About' },
-  { href: '/contact',      label: 'Contact' },
+  { href: '/', label: 'Home' },
+  { href: '/products', label: 'Panels' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
 ];
 
 export default function Navbar() {
-  const [user, setUser]               = useState(null);
-  const [walletBalance, setWallet]    = useState(null);
-  const [menuOpen, setMenuOpen]       = useState(false);
-  const [scrolled, setScrolled]       = useState(false);
-  const [chatOpen, setChatOpen]       = useState(false);
-  const [chatMsg, setChatMsg]         = useState({ subject: '', message: '' });
+  const [user, setUser] = useState(null);
+  const [walletBalance, setWallet] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMsg, setChatMsg] = useState({ subject: '', message: '' });
   const [chatLoading, setChatLoading] = useState(false);
-  const [chatSent, setChatSent]       = useState(false);
-  const router   = useRouter();
+  const [chatSent, setChatSent] = useState(false);
+  const router = useRouter();
   const pathname = usePathname();
-  const chatRef  = useRef(null);
+  const chatRef = useRef(null);
 
-  // Close mobile menu on route change
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
-  // Scroll shadow
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Auth check on every route change
   useEffect(() => {
     fetch('/api/auth/me')
       .then(r => r.ok ? r.json() : null)
@@ -52,7 +48,6 @@ export default function Navbar() {
       .catch(() => { setUser(null); setWallet(null); });
   }, [pathname]);
 
-  // Close chat dropdown on outside click
   useEffect(() => {
     const handler = e => { if (chatRef.current && !chatRef.current.contains(e.target)) setChatOpen(false); };
     document.addEventListener('mousedown', handler);
@@ -98,14 +93,14 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0" style={{ textDecoration: 'none' }}>
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)' }}>
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)' }}>
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <span className="text-base sm:text-lg font-extrabold tracking-tight"
-                style={{ background: 'linear-gradient(135deg,#60a5fa,#3b82f6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                MZAZI TECH
+                style={{ background: 'linear-gradient(135deg, #c084fc, #7c3aed)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                BLACKLORD TECH
               </span>
             </Link>
 
@@ -115,8 +110,8 @@ export default function Navbar() {
                 <Link key={l.href} href={l.href}
                   className="px-3 py-2 rounded-lg text-sm font-medium transition-all"
                   style={{
-                    color: isActive(l.href) ? '#3b82f6' : '#94a3b8',
-                    backgroundColor: isActive(l.href) ? 'rgba(37,99,235,0.1)' : 'transparent',
+                    color: isActive(l.href) ? '#7c3aed' : '#94a3b8',
+                    backgroundColor: isActive(l.href) ? 'rgba(124,58,237,0.1)' : 'transparent',
                   }}>
                   {l.label}
                 </Link>
@@ -163,7 +158,7 @@ export default function Navbar() {
                             style={{ backgroundColor: '#0a0a0f', border: '1px solid #1e2d4a', color: '#f0f4ff' }} />
                           <button type="submit" disabled={chatLoading}
                             className="w-full py-2 rounded-lg text-sm font-semibold text-white"
-                            style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', opacity: chatLoading ? 0.7 : 1 }}>
+                            style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)', opacity: chatLoading ? 0.7 : 1 }}>
                             {chatLoading ? 'Sending…' : 'Send Inquiry'}
                           </button>
                         </form>
@@ -177,7 +172,7 @@ export default function Navbar() {
               {user && walletBalance !== null && (
                 <Link href="/wallet"
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all"
-                  style={{ backgroundColor: 'rgba(37,99,235,0.1)', color: '#60a5fa', border: '1px solid rgba(37,99,235,0.2)', textDecoration: 'none' }}>
+                  style={{ backgroundColor: 'rgba(124,58,237,0.1)', color: '#c084fc', border: '1px solid rgba(124,58,237,0.2)', textDecoration: 'none' }}>
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
@@ -192,7 +187,7 @@ export default function Navbar() {
                     className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all"
                     style={{ color: '#94a3b8', border: '1px solid #1e2d4a', textDecoration: 'none' }}>
                     <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                      style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff' }}>
+                      style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)', color: '#fff' }}>
                       {(user.firstname || user.email || 'U')[0].toUpperCase()}
                     </div>
                     {user.firstname || 'Account'}
@@ -212,7 +207,7 @@ export default function Navbar() {
                   </Link>
                   <Link href="/signup"
                     className="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all"
-                    style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', textDecoration: 'none' }}>
+                    style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)', textDecoration: 'none' }}>
                     Get Started
                   </Link>
                 </>
@@ -224,7 +219,7 @@ export default function Navbar() {
               {user && walletBalance !== null && (
                 <Link href="/wallet"
                   className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold"
-                  style={{ backgroundColor: 'rgba(37,99,235,0.1)', color: '#60a5fa', border: '1px solid rgba(37,99,235,0.2)', textDecoration: 'none' }}>
+                  style={{ backgroundColor: 'rgba(124,58,237,0.1)', color: '#c084fc', border: '1px solid rgba(124,58,237,0.2)', textDecoration: 'none' }}>
                   💳 KSH {parseFloat(walletBalance).toLocaleString()}
                 </Link>
               )}
@@ -258,8 +253,8 @@ export default function Navbar() {
               <Link key={l.href} href={l.href}
                 className="flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all"
                 style={{
-                  color: isActive(l.href) ? '#3b82f6' : '#94a3b8',
-                  backgroundColor: isActive(l.href) ? 'rgba(37,99,235,0.1)' : 'transparent',
+                  color: isActive(l.href) ? '#7c3aed' : '#94a3b8',
+                  backgroundColor: isActive(l.href) ? 'rgba(124,58,237,0.1)' : 'transparent',
                 }}>
                 {l.label}
               </Link>
@@ -268,11 +263,10 @@ export default function Navbar() {
             <div className="pt-3 border-t" style={{ borderColor: '#1e2d4a' }}>
               {user ? (
                 <div className="space-y-2">
-                  {/* User info */}
                   <div className="flex items-center gap-3 px-4 py-3 rounded-xl"
                     style={{ backgroundColor: '#0f1629', border: '1px solid #1e2d4a' }}>
                     <div className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-                      style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', color: '#fff' }}>
+                      style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)', color: '#fff' }}>
                       {(user.firstname || user.email || 'U')[0].toUpperCase()}
                     </div>
                     <div>
@@ -289,7 +283,7 @@ export default function Navbar() {
                   </Link>
                   <Link href="/wallet"
                     className="flex items-center px-4 py-3 rounded-xl text-sm font-medium"
-                    style={{ color: '#60a5fa', backgroundColor: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.2)', textDecoration: 'none' }}>
+                    style={{ color: '#c084fc', backgroundColor: 'rgba(124,58,237,0.08)', border: '1px solid rgba(124,58,237,0.2)', textDecoration: 'none' }}>
                     💳 Wallet · KSH {walletBalance !== null ? parseFloat(walletBalance).toLocaleString() : '—'}
                   </Link>
                   <button onClick={handleLogout}
@@ -307,7 +301,7 @@ export default function Navbar() {
                   </Link>
                   <Link href="/signup"
                     className="flex items-center justify-center px-4 py-3 rounded-xl text-sm font-semibold text-white"
-                    style={{ background: 'linear-gradient(135deg,#2563eb,#1d4ed8)', textDecoration: 'none' }}>
+                    style={{ background: 'linear-gradient(135deg, #7c3aed, #3b82f6)', textDecoration: 'none' }}>
                     Get Started — Free
                   </Link>
                 </div>
